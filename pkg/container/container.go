@@ -215,8 +215,6 @@ func (c Container) FreshContainerTagConstraint() string {
 	return c.getLabelValueOrEmpty(freshContainerTagConstraintLabel)
 }
 
-
-
 // StopSignal returns the custom stop signal (if any) that is encoded in the
 // container's metadata. If the container has not specified a custom stop
 // signal, the empty string "" is returned.
