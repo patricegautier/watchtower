@@ -208,6 +208,15 @@ func (c Container) PostUpdateTimeout() int {
 	return minutes
 }
 
+// FreshContainerTagConstraint return what the constraint is that tags have to satisfy
+// in order to be update candidates for this container.  See https://github.com/flavio/fresh-container
+// for syntax
+func (c Container) FreshContainerTagConstraint() string {
+	return c.getLabelValueOrEmpty(freshContainerTagConstraintLabel)
+}
+
+
+
 // StopSignal returns the custom stop signal (if any) that is encoded in the
 // container's metadata. If the container has not specified a custom stop
 // signal, the empty string "" is returned.

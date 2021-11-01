@@ -18,6 +18,7 @@ const (
 	preUpdateUserLabel    = "com.centurylinklabs.watchtower.lifecycle.pre-update.user"
 	postUpdateUserLabel   = "com.centurylinklabs.watchtower.lifecycle.post-update.user"
 	postUpdateTimeoutLabel = "com.centurylinklabs.watchtower.lifecycle.post-update-timeout"
+	freshContainerTagConstraintLabel = "com.centurylinklabs.watchtower.freshContainer.tag-constraint"
 )
 
 // GetLifecyclePreCheckCommand returns the pre-check command set in the container metadata or an empty string
