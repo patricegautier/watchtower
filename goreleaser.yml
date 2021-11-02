@@ -29,7 +29,7 @@ archives:
       - LICENSE.md
 dockers:
   -
-    use_buildx: true
+    use: buildx
     build_flag_templates: [ "--platform=linux/amd64" ]
     goos: linux
     goarch: amd64
@@ -40,10 +40,8 @@ dockers:
       - containrrr/watchtower:amd64-latest
       - ghcr.io/containrrr/watchtower:amd64-{{ .Version }}
       - ghcr.io/containrrr/watchtower:amd64-latest
-    binaries:
-      - watchtower
   - 
-    use_buildx: true
+    use: buildx
     build_flag_templates: [ "--platform=linux/386" ]
     goos: linux
     goarch: 386
@@ -54,10 +52,8 @@ dockers:
       - containrrr/watchtower:i386-latest
       - ghcr.io/containrrr/watchtower:i386-{{ .Version }}
       - ghcr.io/containrrr/watchtower:i386-latest
-    binaries:
-      - watchtower
   - 
-    use_buildx: true
+    use: buildx
     build_flag_templates: [ "--platform=linux/arm/v6" ]
     goos: linux
     goarch: arm
@@ -68,10 +64,8 @@ dockers:
       - containrrr/watchtower:armhf-latest
       - ghcr.io/containrrr/watchtower:armhf-{{ .Version }}
       - ghcr.io/containrrr/watchtower:armhf-latest
-    binaries:
-      - watchtower
   - 
-    use_buildx: true
+    use: buildx
     build_flag_templates: [ "--platform=linux/arm64/v8" ]
     goos: linux
     goarch: arm64
@@ -82,5 +76,3 @@ dockers:
       - containrrr/watchtower:arm64v8-latest
       - ghcr.io/containrrr/watchtower:arm64v8-{{ .Version }}
       - ghcr.io/containrrr/watchtower:arm64v8-latest
-    binaries:
-      - watchtower
