@@ -29,7 +29,7 @@ var _ = Describe("the manifest module", func() {
 				},
 			}
 			mock := mocks.CreateMockContainerWithImageInfo(mockId, mockName, "ghcr.io/containrrr/watchtower:latest", mockCreated, imageInfo)
-			res, err := manifest.BuildManifestURL(mock)
+			res, err := manifest.BuildManifestURL(mock,"")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(res).To(Equal(expected))
 		})
@@ -42,7 +42,7 @@ var _ = Describe("the manifest module", func() {
 			}
 
 			mock := mocks.CreateMockContainerWithImageInfo(mockId, mockName, "containrrr/watchtower:latest", mockCreated, imageInfo)
-			res, err := manifest.BuildManifestURL(mock)
+			res, err := manifest.BuildManifestURL(mock,"")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(res).To(Equal(expected))
 		})
@@ -57,7 +57,7 @@ var _ = Describe("the manifest module", func() {
 
 			mock := mocks.CreateMockContainerWithImageInfo(mockId, mockName, "containrrr/watchtower", mockCreated, imageInfo)
 
-			res, err := manifest.BuildManifestURL(mock)
+			res, err := manifest.BuildManifestURL(mock,"")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(res).To(Equal(expected))
 		})

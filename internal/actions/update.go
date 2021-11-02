@@ -32,7 +32,7 @@ func Update(client container.Client, params types.UpdateParams) (types.Report, e
 	staleCheckFailed := 0
 
 	for i, targetContainer := range containers {
-		stale, newestImage, err := client.IsContainerStale(targetContainer)
+		stale, newImage, nextTag, err := client.IsContainerStale(targetContainer)
 		shouldUpdate := stale && !params.NoRestart && !params.MonitorOnly && !targetContainer.IsMonitorOnly()
 		if err == nil && shouldUpdate {
 			// Check to make sure we have all the necessary information for recreating the container
@@ -54,7 +54,10 @@ func Update(client container.Client, params types.UpdateParams) (types.Report, e
 			staleCheckFailed++
 			progress.AddSkipped(targetContainer, err)
 		} else {
-			progress.AddScanned(targetContainer, newestImage)
+			if nextTag != "" {
+				containers[i].NextVersionTag = nextTag
+			}
+			progress.AddScanned(targetContainer, newImage)
 		}
 		containers[i].Stale = stale
 
@@ -101,6 +104,7 @@ func performRollingRestart(containers []container.Container, client container.Cl
 
 	for i := len(containers) - 1; i >= 0; i-- {
 		if containers[i].ToRestart() {
+			log.Debugf("Next Image still2: %s", containers[i].NextImageName())
 			err := stopStaleContainer(containers[i], client, params)
 			if err != nil {
 				failed[containers[i].ID()] = err

@@ -342,3 +342,18 @@ Environment Variable: WATCHTOWER_WARN_ON_HEAD_FAILURE
      Possible values: always, auto, never
              Default: auto
 ```
+
+## Fresh Container Integration
+
+Specify a fresh container server to query for the next version tag for your containers.  For every container, you can Specify
+fresh containers constraints with labels
+
+See https://github.com/flavio/fresh-container
+
+
+```text
+            Argument: --fresh-container-url
+Environment Variable: WATCHTOWER_FRESH_CONTAINER_URL
+                Type: String
+             Default: -
+```

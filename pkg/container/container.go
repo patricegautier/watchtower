@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/containrrr/watchtower/internal/util"
+	"github.com/containrrr/watchtower/pkg/registry/manifest"
 	wt "github.com/containrrr/watchtower/pkg/types"
 
 	"github.com/docker/docker/api/types"
@@ -21,10 +22,12 @@ func NewContainer(containerInfo *types.ContainerJSON, imageInfo *types.ImageInsp
 	}
 }
 
+// NextVersionTag is used to hold the tag found by freshContainer
 // Container represents a running Docker container.
 type Container struct {
 	LinkedToRestarting bool
 	Stale              bool
+	NextVersionTag     string
 
 	containerInfo *types.ContainerJSON
 	imageInfo     *types.ImageInspect
@@ -89,6 +92,18 @@ func (c Container) ImageName() string {
 	}
 
 	return imageName
+}
+
+// NextImageName returns the name (with tag) of the image name to restart the container with
+// It's potentially different than the one the container was started with if freshContainer
+// is used, and found a tag that passes the constraints
+func (c Container) NextImageName() string {
+	nextImageName := c.ImageName()
+	if c.NextVersionTag != "" {
+		base, _ := manifest.ExtractImageAndTag(nextImageName)
+		nextImageName = base + ":" + c.NextVersionTag
+	}
+	return nextImageName
 }
 
 // Enabled returns the value of the container enabled label and if the label
@@ -208,11 +223,18 @@ func (c Container) PostUpdateTimeout() int {
 	return minutes
 }
 
-// FreshContainerTagConstraint return what the constraint is that tags have to satisfy
+// FreshContainerTagConstraint returns what the constraint is that tags have to satisfy
 // in order to be update candidates for this container.  See https://github.com/flavio/fresh-container
 // for syntax
 func (c Container) FreshContainerTagConstraint() string {
 	return c.getLabelValueOrEmpty(freshContainerTagConstraintLabel)
+}
+
+// FreshContainerTagPrefix returns what the tagPrefix tags have to start with
+// in order to be update candidates for this container.  See https://github.com/flavio/fresh-container
+// for syntax
+func (c Container) FreshContainerTagPrefix() string {
+	return c.getLabelValueOrEmpty(freshContainerTagPrefixLabel)
 }
 
 // StopSignal returns the custom stop signal (if any) that is encoded in the
@@ -273,7 +295,7 @@ func (c Container) runtimeConfig() *dockercontainer.Config {
 		config.ExposedPorts[p] = struct{}{}
 	}
 
-	config.Image = c.ImageName()
+	config.Image = c.NextImageName()
 	return config
 }
 

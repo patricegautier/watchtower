@@ -89,9 +89,17 @@ func (client MockClient) ExecuteCommand(_ t.ContainerID, command string, user st
 }
 
 // IsContainerStale is always true for the mock client
-func (client MockClient) IsContainerStale(_ container.Container) (bool, t.ImageID, error) {
-	return true, "", nil
+func (client MockClient) IsContainerStale(_ container.Container) (bool, t.ImageID, string, error) {
+	return true, "", "", nil
 }
+
+// FreshContainerURL always nil for the mock client
+func (client MockClient) FreshContainerServerURL() string {
+	return ""
+}
+
+
+
 
 // WarnOnHeadPullFailed is always true for the mock client
 func (client MockClient) WarnOnHeadPullFailed(_ container.Container) bool {

@@ -66,4 +66,6 @@ type Container interface {
 	GetLifecyclePostCheckUser() string
 	GetLifecyclePreUpdateUser() string
 	GetLifecyclePostUpdateUser() string
+	FreshContainerTagConstraint() string
+	FreshContainerTagPrefix() string
 }

@@ -325,6 +325,11 @@ Should only be used for testing.`)
 		viper.GetString("WATCHTOWER_WARN_ON_HEAD_FAILURE"),
 		"When to warn about HEAD pull requests failing. Possible values: always, auto or never")
 
+	flags.String(
+		"fresh-container-url",
+		viper.GetString("WATCHTOWER_FRESH_CONTAINER_URL"),
+		"Specify a fresh container server url, e.g http://fresh-container.mydomain.com")
+
 }
 
 // SetDefaults provides default values for environment variables
