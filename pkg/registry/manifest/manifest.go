@@ -111,7 +111,7 @@ func BuildFreshContainerURL(container types.Container, freshContainerServerURL s
 	constraintQuery := "constraint=" + url2.QueryEscape(freshContainerTagConstraint)
 	rawQuery := constraintQuery + "&" + imageQuery
 	if freshContainerTagPrefix != "" {
-		rawQuery += "&" + "prefix=" + url2.QueryEscape(freshContainerTagPrefix)
+		rawQuery += "&" + "tagPrefix=" + url2.QueryEscape(freshContainerTagPrefix)
 	}
 
 	url := freshContainerServerURL + "/api/v1/check?" + rawQuery
