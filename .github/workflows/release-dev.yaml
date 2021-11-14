@@ -44,7 +44,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           file: dockerfiles/Dockerfile.self-contained
-          repository: containrrr/watchtower
+          repository: ${{ github.repository }}
           tags: latest-dev
       - name: Publish to GHCR
         uses: jerray/publish-docker-action@master
