@@ -71,6 +71,8 @@ func ExtractImageAndTag(imageName string) (string, string) {
 	return img, tag
 }
 
+// BuildFreshContainerURL builds the URL to query the fresh container server with given the
+// constraints in the container
 func BuildFreshContainerURL(container types.Container, freshContainerServerURL string) (string, error) {
 
 	freshContainerTagConstraint := container.FreshContainerTagConstraint()

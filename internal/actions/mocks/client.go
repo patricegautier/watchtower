@@ -93,13 +93,10 @@ func (client MockClient) IsContainerStale(_ container.Container) (bool, t.ImageI
 	return true, "", "", nil
 }
 
-// FreshContainerURL always nil for the mock client
+// FreshContainerServerURL always nil for the mock client
 func (client MockClient) FreshContainerServerURL() string {
 	return ""
 }
-
-
-
 
 // WarnOnHeadPullFailed is always true for the mock client
 func (client MockClient) WarnOnHeadPullFailed(_ container.Container) bool {

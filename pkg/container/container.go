@@ -22,8 +22,8 @@ func NewContainer(containerInfo *types.ContainerJSON, imageInfo *types.ImageInsp
 	}
 }
 
-// NextVersionTag is used to hold the tag found by freshContainer
 // Container represents a running Docker container.
+// NextVersionTag is used to hold the tag found by freshContainer
 type Container struct {
 	LinkedToRestarting bool
 	Stale              bool

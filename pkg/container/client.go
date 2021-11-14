@@ -278,15 +278,13 @@ func (client dockerClient) IsContainerStale(container Container) (stale bool, la
 		log.Debugf("Skipping image pull.")
 		stale, latestImage, iErr := client.HasNewImage(ctx, container, "")
 		return stale, latestImage, "", iErr
-	} else {
-		nextTag, err := client.NextTagFromPulledImage(ctx, container)
-		if err != nil {
-			return false, container.SafeImageID(), "", err
-		}
-		stale, latestImage, iErr := client.HasNewImage(ctx, container, nextTag)
-		return stale, latestImage, nextTag, iErr
 	}
-
+	nextTag, err := client.NextTagFromPulledImage(ctx, container)
+	if err != nil {
+		return false, container.SafeImageID(), "", err
+	}
+	stale, latestImage, iErr := client.HasNewImage(ctx, container, nextTag)
+	return stale, latestImage, nextTag, iErr
 }
 
 func (client dockerClient) HasNewImage(ctx context.Context, container Container, nextVersionTag string) (hasNew bool, latestImage t.ImageID, err error) {
