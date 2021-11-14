@@ -35,7 +35,7 @@ const ContentDigestHeader = "Docker-Content-Digest"
 //   - the first bool result indicate whether we found a match or not
 //   - the string is the next tag that should be fetched if freshContainer constraints are in effect
 //   - the second is, in case the first one is false, whether it was caused by a freshContainer failure
-//     in which case we won't want to fetch the full image
+//     	in which case we won't want to fetch the full image
 func CompareDigestForNextValidVersion(container types.Container, registryAuth string, freshContainerServerURL string) (match bool, nextTag string, digestFailed bool, err error) {
 	if !container.HasImageInfo() {
 		return false, "", true, errors.New("container image info missing")
