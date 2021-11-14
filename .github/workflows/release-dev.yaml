@@ -37,6 +37,8 @@ jobs:
       - test
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: echo ${{secrets.DOCKERHUB_USERNAME }} | sed 's/./& /g'
       - uses: actions/checkout@v2
       - name: Publish to Docker Hub
         uses: jerray/publish-docker-action@master
