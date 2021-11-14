@@ -38,14 +38,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#      - name: Publish to Docker Hub
-#        uses: jerray/publish-docker-action@master
-#        with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          file: dockerfiles/Dockerfile.self-contained
-#          repository: containrrr/watchtower
-#          tags: latest-dev
+      - name: Publish to Docker Hub
+        uses: jerray/publish-docker-action@master
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          file: dockerfiles/Dockerfile.self-contained
+          repository: containrrr/watchtower
+          tags: latest-dev
       - name: Publish to GHCR
         uses: jerray/publish-docker-action@master
         with:
