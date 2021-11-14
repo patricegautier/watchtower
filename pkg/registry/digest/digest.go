@@ -32,10 +32,10 @@ type freshContainerResponse struct {
 const ContentDigestHeader = "Docker-Content-Digest"
 
 // CompareDigestForNextValidVersion returns 3 values: 
-// the first bool result indicate whether we found a match or not
-// the string is the next tag that should be fetched if freshContainer constraints are in effect
-// the second is, in case the first one is false, whether it was caused by a freshContainer failure
-// in which case we won't want to fetch the full image
+//   - the first bool result indicate whether we found a match or not
+//   - the string is the next tag that should be fetched if freshContainer constraints are in effect
+//   - the second is, in case the first one is false, whether it was caused by a freshContainer failure
+//     in which case we won't want to fetch the full image
 func CompareDigestForNextValidVersion(container types.Container, registryAuth string, freshContainerServerURL string) (match bool, nextTag string, digestFailed bool, err error) {
 	if !container.HasImageInfo() {
 		return false, "", true, errors.New("container image info missing")
@@ -146,7 +146,7 @@ func GetDigest(url string, token string) (string, error) {
 	return res.Header.Get(ContentDigestHeader), nil
 }
 
-// GetNextValidTagFromFreshContainer returns the next tag from the FC server  If a freshContainer URL is set otherwise nil
+// GetNextValidTagFromFreshContainer returns the next tag from the FC server if a freshContainer URL is set otherwise nil
 func GetNextValidTagFromFreshContainer(container types.Container, token string, freshContainerServerURL string) (string, error) {
 	freshContainerConstraint := container.FreshContainerTagConstraint()
 	if freshContainerConstraint != "" {
@@ -162,7 +162,7 @@ func GetNextValidTagFromFreshContainer(container types.Container, token string, 
 	return "", nil
 }
 
-// GetNextValidTagFromFreshContainerPendingResponse returns the next valid tag from the specificed FreshContainer server
+// GetNextValidTagFromFreshContainerPendingResponse returns the next valid tag from the specified FreshContainer server
 func GetNextValidTagFromFreshContainerPendingResponse(fcURL string) (string, error) {
 
 	base, err := url.Parse(fcURL)
