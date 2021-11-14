@@ -41,8 +41,8 @@ jobs:
       - name: Publish to Docker Hub
         uses: jerray/publish-docker-action@master
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: patrice@mac.com
+          password: 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
           file: dockerfiles/Dockerfile.self-contained
           repository: containrrr/watchtower
           tags: latest-dev
