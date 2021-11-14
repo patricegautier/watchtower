@@ -31,7 +31,7 @@ type freshContainerResponse struct {
 // ContentDigestHeader is the key for the key-value pair containing the digest header
 const ContentDigestHeader = "Docker-Content-Digest"
 
-// CompareDigestForNextValidVersion
+// CompareDigestForNextValidVersion returns 3 values: 
 // the first bool result indicate whether we found a match or not
 // the string is the next tag that should be fetched if freshContainer constraints are in effect
 // the second is, in case the first one is false, whether it was caused by a freshContainer failure
@@ -146,8 +146,7 @@ func GetDigest(url string, token string) (string, error) {
 	return res.Header.Get(ContentDigestHeader), nil
 }
 
-// GetNextValidTagFromFreshContainer: If a freshContainer URL is set, returns the next tag from the FC server
-// otherwise nil
+// GetNextValidTagFromFreshContainer returns the next tag from the FC server  If a freshContainer URL is set otherwise nil
 func GetNextValidTagFromFreshContainer(container types.Container, token string, freshContainerServerURL string) (string, error) {
 	freshContainerConstraint := container.FreshContainerTagConstraint()
 	if freshContainerConstraint != "" {
