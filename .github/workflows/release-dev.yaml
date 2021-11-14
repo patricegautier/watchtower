@@ -53,5 +53,5 @@ jobs:
           password: ${{ secrets.BOT_GHCR_PAT }}
           file: dockerfiles/Dockerfile.self-contained
           registry: ghcr.io
-          repository: containrrr/watchtower
+          repository: ${{ github.repository }}
           tags: latest-dev
